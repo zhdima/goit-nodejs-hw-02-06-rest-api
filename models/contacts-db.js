@@ -10,7 +10,7 @@ const listContacts = async () => {
 }
 
 const getContactById = async (contactId) => {
-  const result = Contacts.findById(contactId);
+  const result = await Contacts.findById(contactId);
   return result;
 }
 
@@ -20,7 +20,7 @@ const removeContact = async (contactId) => {
 }
 
 const addContact = async (body) => {
-  const result = Contacts.create(body);
+  const result = await Contacts.create(body);
   return result;
 }
 

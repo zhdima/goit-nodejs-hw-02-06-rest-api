@@ -1,4 +1,4 @@
-const contactsService = require("../models/contacts-fs");
+const contactsService = require("../models/contacts-db");
 
 const { HttpError } = require("../helpers");
 
