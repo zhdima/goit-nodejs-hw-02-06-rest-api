@@ -38,7 +38,7 @@ const removeContact = async (req, res) => {
   if (!result) {
     throw HttpError(404, `Contact with id = ${id} not found`);
   }
-  res.json({ message: "Contact deleted" });
+  res.json({ message: "Contact deleted", result });
 };
 
 module.exports = {
