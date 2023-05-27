@@ -4,8 +4,10 @@ const { contactSchema } = require("../schemas/contacts-schemas");
 
 const Contacts = model("contact", contactSchema);
 
-const listContacts = async (owner) => {
-  const result = await Contacts.find({owner}, "-createdAt -updatedAt").populate("owner", "email subscription");
+const listContacts = async (owner, page = 1, limit = 20) => {
+  const skip = (page - 1) * limit;
+
+  const result = await Contacts.find({owner}, "-createdAt -updatedAt", { skip, limit }).populate("owner", "email subscription");
   return result;
 }
 
