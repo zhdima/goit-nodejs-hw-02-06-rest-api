@@ -2,7 +2,7 @@ const { model } = require("mongoose");
 
 const { contactSchema } = require("../schemas/contacts-schemas");
 
-const Contacts = model("contacts", contactSchema);
+const Contacts = model("contact", contactSchema);
 
 const listContacts = async () => {
   const result = await Contacts.find({}, "-createdAt -updatedAt");

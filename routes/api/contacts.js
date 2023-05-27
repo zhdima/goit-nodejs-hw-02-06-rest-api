@@ -5,9 +5,12 @@ const contactsController = require("../../controllers/contacts-controller");
 const schemas = require("../../schemas/contacts-schemas");
 
 const { validateBody } = require("../../decorators");
-const { isValidId } = require("../../helpers");
+
+const { isValidId, authenticate } = require("../../middlewares");
 
 const router = express.Router();
+
+router.use(authenticate);
 
 router.get("/", contactsController.listContacts);
 
