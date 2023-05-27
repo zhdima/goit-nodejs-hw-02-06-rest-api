@@ -18,10 +18,10 @@ router.get("/:id", isValidId, contactsController.getContactById);
 
 router.post("/", validateBody(schemas.contactAddSchema), contactsController.addContact);
 
-router.put("/:id", isValidId, validateBody(schemas.contactUpdateSchema), contactsController.updateContact)
+router.put("/:id", isValidId, validateBody(schemas.contactUpdateSchema), contactsController.updateContact);
 
-router.patch("/:id/favorite", isValidId, validateBody(schemas.contactUpdateFavoriteSchema), contactsController.updateContact)
+router.patch("/:id/favorite", isValidId, validateBody(schemas.contactUpdateFavoriteSchema), contactsController.updateContact);
 
-router.delete("/:id", isValidId, contactsController.removeContact)
+router.delete("/:id", isValidId, contactsController.removeContact);
 
 module.exports = router;

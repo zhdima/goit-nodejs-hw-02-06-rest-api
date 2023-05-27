@@ -45,8 +45,15 @@ const userLoginSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const userUpdateSubscriptionSchema = Joi.object({
+  subscription: Joi.string().valid(...subscriptionList).required().messages({
+    "any.required": "missing field subscription",
+  }),
+});
+
 module.exports = {
   userSchema,
   userRegisterSchema,
   userLoginSchema,
+  userUpdateSubscriptionSchema,
 };
