@@ -7,8 +7,14 @@ const { ctrlWrapper } = require("../decorators");
 const listContacts = async (req, res) => {
   const owner = req.user._id;
   const { page = 1, limit = 20 } = req.query;
+  const { favorite = null } = req.query;
   
-  const result = await contactsService.listContacts(owner, page, limit);
+  const filter = { owner };
+  if (favorite !== null) {
+    filter.favorite = favorite;
+  }
+    
+  const result = await contactsService.listContacts(filter, page, limit);
   res.json(result);
 };
 
