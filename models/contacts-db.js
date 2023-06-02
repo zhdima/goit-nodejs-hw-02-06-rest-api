@@ -2,10 +2,12 @@ const { model } = require("mongoose");
 
 const { contactSchema } = require("../schemas/contacts-schemas");
 
-const Contacts = model("contacts", contactSchema);
+const Contacts = model("contact", contactSchema);
 
-const listContacts = async () => {
-  const result = await Contacts.find({}, "-createdAt -updatedAt");
+const listContacts = async (filter = {}, page = 1, limit = 20) => {
+  const skip = (page - 1) * limit;
+
+  const result = await Contacts.find(filter, "-createdAt -updatedAt", { skip, limit }).populate("owner", "email subscription");
   return result;
 }
 

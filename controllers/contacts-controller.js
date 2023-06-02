@@ -5,7 +5,16 @@ const { HttpError } = require("../helpers");
 const { ctrlWrapper } = require("../decorators");
 
 const listContacts = async (req, res) => {
-  const result = await contactsService.listContacts();
+  const owner = req.user._id;
+  const { page = 1, limit = 20 } = req.query;
+  const { favorite = null } = req.query;
+  
+  const filter = { owner };
+  if (favorite !== null) {
+    filter.favorite = favorite;
+  }
+    
+  const result = await contactsService.listContacts(filter, page, limit);
   res.json(result);
 };
 
@@ -19,7 +28,8 @@ const getContactById = async (req, res) => {
 };
 
 const addContact = async (req, res) => {
-  const result = await contactsService.addContact(req.body);
+  const owner = req.user._id;
+  const result = await contactsService.addContact({ ...req.body, owner });
   res.status(201).json(result);
 };
 
