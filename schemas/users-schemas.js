@@ -32,6 +32,14 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationCode: {
+      type: String,
+      required: [true, 'Verify code is required'],
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -50,9 +58,12 @@ const userLoginSchema = Joi.object({
 });
 
 const userUpdateSubscriptionSchema = Joi.object({
-  subscription: Joi.string().valid(...subscriptionList).required().messages({
-    "any.required": "missing field subscription",
-  }),
+  subscription: Joi.string()
+    .valid(...subscriptionList)
+    .required()
+    .messages({
+      "any.required": "missing field subscription",
+    }),
 });
 
 module.exports = {
