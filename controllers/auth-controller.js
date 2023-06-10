@@ -41,6 +41,19 @@ const register = async (req, res) => {
   });
 };
 
+const verify = async (req, res) => {
+  const { verificationCode } = req.params;
+  const user = await User.findOne({ verificationCode });
+  if(!user) {
+    throw HttpError(404);
+  }
+  await User.findByIdAndUpdate(user._id, { verify: true, verificationCode: "" });
+
+  res.json({
+    message: "Verify success"
+  })
+}
+
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -96,6 +109,7 @@ const logout = async (req, res) => {
 
 module.exports = {
   register: ctrlWrapper(register),
+  verify: ctrlWrapper(verify),
   login: ctrlWrapper(login),
   getCurrent: ctrlWrapper(getCurrent),
   logout: ctrlWrapper(logout),
